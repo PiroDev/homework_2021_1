@@ -28,4 +28,22 @@ QUnit.module('Тестируем функцию euclid', function () {
 		const temp = [ 80325, 55275, 8746650, 3000000, 45672375, 225, 54675 ];
 		assert.strictEqual(euclid(...[ ...temp, ...temp, ...temp, ...temp, ...temp ]), euclid(...temp));
 	});
+
+	QUnit.test('Функция должна правильно работать для натуральных чисел, игнорируя другие значения', function (assert) {
+		assert.strictEqual(euclid(-2, 13, 26, 0), 13, 'euclid(-2, 13, 26, 0) === 13');
+		assert.strictEqual(euclid(15, undefined, 5), 5, 'euclid(15, undefined, 5) === 5');
+		assert.strictEqual(euclid(24, 36, null, NaN, Infinity, 18, 'qwerty'), 6,
+			'euclid(24, 36, null, NaN, Infinity, 18, \'qwerty\') === 6');
+		assert.strictEqual(euclid(1, 3, 4, { a: '2', b: '3' }, [NaN]), 1,
+			'euclid(1, 3, 4, { a: \'2\', b: \'3\' }, [NaN]) === 1');
+	});
+
+	QUnit.test('Функция должна возвращать число -1, если не было передано ни одного натурального числа', function (assert) {
+		assert.strictEqual(euclid(-2, -13, -26, 0), -1, 'euclid(-2, -13, -26, 0) === -1');
+		assert.strictEqual(euclid(-15, undefined, -5), -1, 'euclid(-15, undefined, -5) === -1');
+		assert.strictEqual(euclid(-24, -36, null, NaN, Infinity, -18, 'qwerty'), -1,
+			'euclid(-24, -36, null, NaN, Infinity, -18, \'qwerty\') === -1');
+		assert.strictEqual(euclid(-1, -3, -4, { a: '2', b: '3' }, [NaN]), -1,
+			'euclid(-1, -3, -4, { a: \'2\', b: \'3\' }, [NaN]) === -1');
+	});
 });
