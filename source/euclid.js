@@ -11,29 +11,25 @@
 const euclid = (...values) => {
     const naturalNumbers = values.filter((value) => Number.isInteger(value) && value >= 1);
 
-    if (naturalNumbers.length == 0) {
+    if (naturalNumbers.length === 0) {
         return -1;
     }
 
-    return findGCD(...naturalNumbers);
+    return naturalNumbers.reduce(findGCD);
 };
 
 /**
- * Takes natural numbers and retuns their greatest common divisor (GCD)
- * @param  {...number} numbers Sequence of natural numbers
+ * Takes two natural numbers and returns their greatest common divisor (GCD)
+ * @param {number} firstNumber
+ * @param {number} secondNumber 
  * 
  * @returns {number} GCD of provided numbers
  */
-function findGCD(...numbers) {
-    const reducer = (previousNumber, currentNumber) => {
-
-        while (previousNumber != 0 && currentNumber != 0) {
-            (previousNumber > currentNumber) ? previousNumber %= currentNumber :
-                currentNumber %= previousNumber;
-        }
-
-        return previousNumber + currentNumber;
+const findGCD = (firstNumber, secondNumber) => {
+    while (firstNumber !== 0 && secondNumber !== 0) {
+        (firstNumber > secondNumber) ? firstNumber %= secondNumber :
+            secondNumber %= firstNumber;
     }
 
-    return numbers.reduce(reducer);
+    return firstNumber + secondNumber;
 }
