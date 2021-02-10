@@ -15,21 +15,15 @@ const euclid = (...values) => {
         return -1;
     }
 
-    return naturalNumbers.reduce(findGCD);
-};
+    const reducerGCD = (accumulatedGCD, currentNumber) => {
 
-/**
- * Takes two natural numbers and returns their greatest common divisor (GCD)
- * @param {number} firstNumber
- * @param {number} secondNumber 
- * 
- * @returns {number} GCD of provided numbers
- */
-const findGCD = (firstNumber, secondNumber) => {
-    while (firstNumber !== 0 && secondNumber !== 0) {
-        (firstNumber > secondNumber) ? firstNumber %= secondNumber :
-            secondNumber %= firstNumber;
+        while (accumulatedGCD !== 0 && currentNumber !== 0) {
+            (accumulatedGCD > currentNumber) ? accumulatedGCD %= currentNumber :
+                currentNumber %= accumulatedGCD;
+        }
+
+        return accumulatedGCD + currentNumber;
     }
 
-    return firstNumber + secondNumber;
-}
+    return naturalNumbers.reduce(reducerGCD);
+};
